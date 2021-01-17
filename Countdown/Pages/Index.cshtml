@@ -1,0 +1,38 @@
+﻿@page
+@model Countdown.Pages.IndexModel
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{
+    <div id="countdown"></div>
+}
+
+@section scripts {
+    <script src="~/lib/jquery.countdown/jquery.countdown.js"></script>
+
+    <script>
+        /* ---------------------------------------------------------
+         * Countdown
+         */
+
+        var description = {
+            weeks: "weeks",
+            days: "days",
+            hours: "hours",
+            minutes: "minutes",
+            seconds: "seconds"
+        };
+
+        // year/month/day
+        // target date is read from Configuration - by default, can be set in appsettings.json, command line, environment variable etc., due to the use of CreateDefaultBuilder in Program.cs (see https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0#default-configuration)
+        $('#countdown').countdown('@Configuration["TargetDate"]', function (event) {
+            $(this).html(event.strftime(
+                '<div class="countdown-section"><b>%w</b> <span>' + description.weeks + '</span> </div>' +
+                '<div class="countdown-section"><b>%d</b> <span>' + description.days + '</span> </div>' +
+                '<div class="countdown-section"><b>%H</b> <span>' + description.hours + '</span> </div>' +
+                '<div class="countdown-section"><b>%M</b> <span>' + description.minutes + '</span> </div>' +
+                '<div class="countdown-section"><b>%S</b> <span>' + description.seconds + '</span> </div>'
+            ));
+        });
+    </script>
+}
