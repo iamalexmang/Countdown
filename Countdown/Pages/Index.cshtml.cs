@@ -10,14 +10,6 @@ namespace Countdown.Pages
 {
     public class IndexModel : PageModel
     {
-        // requires using Microsoft.Extensions.Configuration;
-        private readonly IConfiguration Configuration;
-
-        public IndexModel(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public void OnGet()
         {
         }
